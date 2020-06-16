@@ -1,2 +1,3 @@
 # 每周总结可以写在这里
-![Image text]('./images/flex.jpg')
+![flex](https://drafts.csswg.org/css-flexbox-1/images/flex-direction-terms.svg)
+
