@@ -19,26 +19,36 @@ const server = http.createServer((req, res) => {
     })
 
     res.end(`<html lang="en">
-    <head>
-        <style>
-            body section div {
-                background-color: plum;
-                width: 30px;
-                height: 30px;
-            }
-    
-            body section #myid {
-                background-color: pink;
-                width: 100px;
-                height: 100px;
-            }
-        </style>
-    </head>
     <body>
-        <section>
-            <div id="myid">hello</div>
-            <div>good</div>
-        </section>
+    <style>
+    .chris{
+        align-items:center;
+        display:flex;
+        width:500px;
+        justify-content:space-around;
+    }
+    div {
+        border:solid 1px black
+    }
+    .first{
+        width:70px;
+        height:70px
+    }
+    .seccond{
+        width:200px;
+        height:50px;
+    }
+    .third{
+        width:200px;
+        height:100px;
+    }
+
+</style>
+<div class="chris">
+    <div  class="first"></div>
+    <div  class="seccond"></div>
+    <div  class="third"></div>
+</div>
     </body>
     </html>`)
 });

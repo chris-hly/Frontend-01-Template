@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/week06/index.js"
+            "program": "${workspaceFolder}/week05/client.js"
         }
     ]
 }

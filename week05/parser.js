@@ -1,5 +1,6 @@
 const EFO = Symbol('EFO');
-const css = require('css')
+const css = require('css');
+const layout = require('./layout');
 let currentToken = null; // 记录当前的tag
 let currentAttribute = null; // 记录当前的属性
 let currentTextNode = null; // 记录当前的text
@@ -36,7 +37,7 @@ function compare(sp1, sp2) {
 
 function addCssRules(text) {
     let ast = css.parse(text)
-    rules.push(...ast.stylesheet.rules)
+    rules.push(...ast.stylesheet.rules)   
 }
 
 function computeCss(element) {
@@ -68,10 +69,10 @@ function computeCss(element) {
                 if (!computedStyle[declaration.property]) {
                     computedStyle[declaration.property] = {}
                     computedStyle[declaration.property].value = declaration.value
-                    computedStyle[declaration.property].specificity =  sp;
-                }else if(compare(computedStyle[declaration.property].specificity, sp) > 0){
+                    computedStyle[declaration.property].specificity = sp;
+                } else if (compare(computedStyle[declaration.property].specificity, sp) > 0) {
                     computedStyle[declaration.property].value = declaration.value
-                    computedStyle[declaration.property].specificity =  sp;
+                    computedStyle[declaration.property].specificity = sp;
                 }
             }
         }
@@ -129,6 +130,7 @@ function emit(token) {
             if (top.tagName == 'style') {
                 addCssRules(top.children[0].content)
             }
+            layout(top)
             stack.pop();
         }
         currentTextNode = null
@@ -368,18 +370,19 @@ module.exports.parserHTML = (html) => {
         state = state(c);
     }
     state = state(EFO)
-    recursion(stack[0])
-    return html
+    // recursion(stack[0])
+    return stack[0]
 
 }
 
-function recursion(dom) {
-    if (dom.computedStyle) {
-        console.log(dom.tagName,dom.computedStyle)
-    }
-    if (dom.children && dom.children[0]) {
-        for (let a of dom.children) {
-            recursion(a)
-        }
-    }
-}
+// function recursion(dom) {
+//     if (typeof dom === 'object') {
+//         const { tagName, computedStyle, attributes }  = dom
+//         // console.log( { tagName, computedStyle, attributes } )
+//     }
+//     if (dom.children && dom.children[0]) {
+//         for (let a of dom.children) {
+//             recursion(a)
+//         }
+//     }
+// }
