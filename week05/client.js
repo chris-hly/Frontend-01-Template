@@ -1,5 +1,8 @@
 const net = require('net');
 const parser = require('./parser')
+const images = require('images')
+const render = require('./render')
+
 class Request {
     constructor(options) {
         this.method = options.method || 'GET';
@@ -101,7 +104,7 @@ class ResponseParser {
 
     receive(string) {
         for (let i = 0; i < string.length; i++) {
-        this.receiveChar(string.charAt(i));
+            this.receiveChar(string.charAt(i));
         }
     }
 
@@ -208,7 +211,9 @@ void async function () {
         }
     });
 
-   const response =  await request.send()
-   const dom  = parser.parserHTML(response.body)
-//    console.log(dom)
+    const response = await request.send()
+    const dom = parser.parserHTML(response.body)
+    const viewport = images(800, 600);
+    render(viewport, dom)
+    viewport.save("viewport.jpg")
 }();

@@ -369,7 +369,7 @@ module.exports.parserHTML = (html) => {
     }
     state = state(EFO)
     recursion(stack[0])
-    return html
+    return stack[0]
 
 }
 

@@ -130,9 +130,9 @@ function emit(token) {
             if (top.tagName == 'style') {
                 addCssRules(top.children[0].content)
             }
-            layout(top)
-            stack.pop();
+            stack.pop();         
         }
+        layout(top);
         currentTextNode = null
     } else if (token.type == 'text') {
         if (currentTextNode === null) {
@@ -375,14 +375,14 @@ module.exports.parserHTML = (html) => {
 
 }
 
-// function recursion(dom) {
-//     if (typeof dom === 'object') {
-//         const { tagName, computedStyle, attributes }  = dom
-//         // console.log( { tagName, computedStyle, attributes } )
-//     }
-//     if (dom.children && dom.children[0]) {
-//         for (let a of dom.children) {
-//             recursion(a)
-//         }
-//     }
-// }
+function recursion(dom) {
+    if (typeof dom === 'object') {
+        const { tagName, computedStyle, attributes }  = dom
+        console.log( { tagName, computedStyle, attributes } )
+    }
+    if (dom.children && dom.children[0]) {
+        for (let a of dom.children) {
+            recursion(a)
+        }
+    }
+}
