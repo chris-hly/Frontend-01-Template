@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row
+        }
+
+        div {
+            background: gray;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <div id="yellow"></div>
+    <div id="green"></div>
+    <script>
+        const timeObje = {
+            'red': 5,
+            'yellow': 2,
+            'green': 10
+        }
+        let arr = ['red', 'yellow', 'green']
+
+        async function func(type) {
+         return  new Promise((res, rej) => {
+                const element = document.getElementById(type);
+                element.style.background = type
+                setTimeout(async () => {
+                    element.style.background = 'gray'
+                    let next = arr.indexOf(type) === 2 ? arr[0] : arr[arr.indexOf(type) + 1]
+                    console.log(next)
+                    await func(next)
+                }, timeObje[type] * 1000)
+            })
+        }
+        func('red')
+    </script>
+</body>
+
+</html>
